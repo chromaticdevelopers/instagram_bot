@@ -36,6 +36,7 @@ def instagram_webhook(request):
                         title = message_item['postback']['title']
                         print("postback", payload, title)
                         # Process the payload and send the appropriate response
+
                         if payload == 'Bridal':
                             # If it's a request for the main menu, send it
                             send_Bridal(recipient_id=sender_id)
@@ -46,6 +47,33 @@ def instagram_webhook(request):
                         elif payload == 'Make up':
                             # If it's an option, process it
                             make_up(recipient_id=sender_id)
+
+
+
+                        elif payload == "Family":
+                            print("picking")
+                            # If it's a request for the main menu, send it
+                            Hair_group(recipient_id=sender_id)
+                        elif payload == 'Double':
+                            # If it's an option, process it
+                            Hair_double(recipient_id=sender_id)
+
+                        elif payload == 'Single':
+                            # If it's an option, process it
+                            Hair_single(recipient_id=sender_id)
+
+
+
+                        elif payload == 'Full Bridal With Family':
+                            # If it's a request for the main menu, send it
+                            send_fullbridal(recipient_id=sender_id)
+                        elif payload == 'Solo Bridal':
+                            # If it's an option, process it
+                            send_solobridal(recipient_id=sender_id)
+
+                        elif payload == 'Couple':
+                            # If it's an option, process it
+                            CoupleBridal(recipient_id=sender_id) 
                             
             
             return HttpResponse('Success', status=200)
@@ -181,8 +209,8 @@ def send_Hair_Dressing( recipient_id=''):
             "buttons": [
                 {
                     "type": "postback",
-                    "title": " Family",
-                    "payload": " Family"
+                    "title": "Family",
+                    "payload": "Family"
                 },
                 {
                     "type": "postback",
@@ -261,6 +289,368 @@ def make_up( recipient_id=''):
         response = requests.post(url=msg_url, json=params)
         response_data = response.json()
         print("res",response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+
+def send_solobridal(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Full Bridal",
+                        "image_url": "https://limelitesalonandspa.com/wp-content/uploads/2023/01/image.png",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+def send_fullbridal(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Bridal- Family",
+                        "image_url": "https://5.imimg.com/data5/SELLER/Default/2020/12/DU/SO/NH/2713142/best-family-makeup-service-in-gurgaon-500x500.jpg",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+def CoupleBridal(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Bridal- Couple",
+                        "image_url": "https://i.pinimg.com/564x/cf/ac/9f/cfac9f55dfa38070d6ba9154bfc9d5e5.jpg",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+def CoupleBridal(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Bridal- Couple",
+                        "image_url": "https://i.pinimg.com/564x/cf/ac/9f/cfac9f55dfa38070d6ba9154bfc9d5e5.jpg",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+def Hair_single(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Hair dressing- Single",
+                        "image_url": "https://i.pinimg.com/564x/cf/ac/9f/cfac9f55dfa38070d6ba9154bfc9d5e5.jpg",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+
+def Hair_double(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Hair dressing- double",
+                        "image_url": "https://image.wedmegood.com/resized-nw/1300X/wp-content/uploads/2022/11/43420f5926a32ca23a11708589ab039a.jpg",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+def Hair_group(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Hair dressing- group",
+                        "image_url": "https://image.wedmegood.com/resized-nw/1300X/wp-content/uploads/2022/11/c1d47984ba1667723d18a28e5e30792d.jpg",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
         return JsonResponse(response_data)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
