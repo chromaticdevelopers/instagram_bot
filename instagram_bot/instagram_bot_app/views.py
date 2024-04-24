@@ -1,10 +1,10 @@
 import json
+import requests
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import requests
 
 
 @csrf_exempt
@@ -44,32 +44,31 @@ def send_instgaram_message(message='', recipient_id=''):
 
     if message == message:
         response_message = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [
-                    {
-                        "title": "Your Card Title",
-                        "image_url": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0f/7e/69/d4.jpg",
-                        "subtitle": "Your Card Subtitle",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": "www.netwebindia.com",
-                            "webview_height_ratio": "tall"
-                        },
-                        "buttons": [
-                            {
-                                "type": "web_url",
-                                "url": "www.netwebindia.com",
-                                "title": "View More"
+                            "attachment": {
+                                "type": "template",
+                                "payload": {
+                                    "template_type": "button",
+                                    "text": "Please select an option:",
+                                    "buttons": [
+                                        {
+                                            "type": "postback",
+                                            "title": "Option 1",
+                                            "payload": "OPTION_1"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Option 2",
+                                            "payload": "OPTION_2"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Option 3",
+                                            "payload": "OPTION_3"
+                                        }
+                                    ]
+                                }
                             }
-                        ]
-                    }
-                ]
-            }
-        }
-    }
+                        }
 
     # Prepare the request data
     params = {
