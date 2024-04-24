@@ -47,9 +47,6 @@ def instagram_webhook(request):
                         elif payload == 'Make up':
                             # If it's an option, process it
                             make_up(recipient_id=sender_id)
-
-
-
                         elif payload == "Family":
                             print("picking")
                             # If it's a request for the main menu, send it
@@ -70,10 +67,20 @@ def instagram_webhook(request):
                         elif payload == 'Solo Bridal':
                             # If it's an option, process it
                             send_solobridal(recipient_id=sender_id)
-
                         elif payload == 'Couple':
                             # If it's an option, process it
                             CoupleBridal(recipient_id=sender_id) 
+
+                        elif payload == 'Full Layer Makeup':
+                            # If it's a request for the main menu, send it
+                            makeup1(recipient_id=sender_id)
+                        elif payload == 'Half Layer Makeup':
+                            # If it's an option, process it
+                            makeup2(recipient_id=sender_id)
+
+                        elif payload == 'Family Makeup':
+                            # If it's an option, process it
+                            makeup3(recipient_id=sender_id) 
                             
             
             return HttpResponse('Success', status=200)
@@ -259,8 +266,8 @@ def make_up( recipient_id=''):
             "buttons": [
                 {
                     "type": "postback",
-                    "title": " Full Layer Makeup",
-                    "payload": " Full Layer Makeup"
+                    "title": "Full Layer Makeup",
+                    "payload": "Full Layer Makeup"
                 },
                 {
                     "type": "postback",
@@ -269,8 +276,8 @@ def make_up( recipient_id=''):
                 },
                 {
                     "type": "postback",
-                    "title": "Family makeup",
-                    "payload": "Family makeup"
+                    "title": "Family Makeup",
+                    "payload": "Family Makeup"
                 }
             ]
         }
@@ -620,6 +627,164 @@ def Hair_group(message='', recipient_id=''):
                     {
                         "title": "Zaras Hair dressing- group",
                         "image_url": "https://image.wedmegood.com/resized-nw/1300X/wp-content/uploads/2022/11/c1d47984ba1667723d18a28e5e30792d.jpg",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+
+def makeup1(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Make over- Full layer",
+                        "image_url": "https://i.pinimg.com/564x/9a/af/5f/9aaf5f6824ffdd8cc5c2a8bfd3db925a.jpg",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+def makeup2(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Make over- Half layer",
+                        "image_url": "https://www.tahaayurveda.com/service/image/3132cebae10f7910e9adcca064296209.webp",
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Inquiry"
+                            },
+                            {
+                                "type": "web_url",
+                                "url": "www.fb.com",
+                                "title": "Book Now"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res", response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+
+def makeup3(message='', recipient_id=''):
+    print("send", message, recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    response_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Zaras Make over- Group",
+                        "image_url": "https://cdn0.weddingwire.in/article/7269/3_2/1280/jpg/9627-kerala-bridal-makeup-weva-photography-lead-image.webp",
                         "buttons": [
                             {
                                 "type": "web_url",
