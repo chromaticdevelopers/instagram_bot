@@ -39,10 +39,14 @@ def instagram_webhook(request):
                         if payload == 'Bridal':
                             # If it's a request for the main menu, send it
                             send_Bridal(recipient_id=sender_id)
-                        elif payload.startswith('OPTION_'):
+                        elif payload == 'Hair Dressing':
                             # If it's an option, process it
-                            # process_option(payload, sender_id)
-                            pass
+                            send_Hair_Dressing(recipient_id=sender_id)
+
+                        elif payload == 'Make up':
+                            # If it's an option, process it
+                            make_up(recipient_id=sender_id)
+                            
             
             return HttpResponse('Success', status=200)
         except Exception as e:
@@ -138,6 +142,107 @@ def send_Bridal( recipient_id=''):
                     "type": "postback",
                     "title": "Couple",
                     "payload": "Couple"
+                }
+            ]
+        }
+    }
+    }
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res",response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+def send_Hair_Dressing( recipient_id=''):
+    print("send",recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    
+    response_message = {
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "button",
+            "text": "Please select an option:",
+            "buttons": [
+                {
+                    "type": "postback",
+                    "title": " Family",
+                    "payload": " Family"
+                },
+                {
+                    "type": "postback",
+                    "title": "Double",
+                    "payload": "Double"
+                },
+                {
+                    "type": "postback",
+                    "title": "Single",
+                    "payload": "Single"
+                }
+            ]
+        }
+    }
+    }
+    # Prepare the request data
+    params = {
+        'recipient': {'id': recipient_id},
+        'message': response_message,
+        'access_token': page_access_token
+    }
+
+    # Send the message
+    msg_url = url + page_id + '/messages'
+    try:
+        response = requests.post(url=msg_url, json=params)
+        response_data = response.json()
+        print("res",response_data)
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+def make_up( recipient_id=''):
+    print("send",recipient_id)
+    url = 'https://graph.facebook.com/v19.0/'
+    page_id = '242698862268160'
+    page_access_token = 'EAAGFqWZAZAX0QBOzd2762CYwTh6SZBBw3TZA5nOyPfPkT7RHThNWz5jQQ6HAvyrlRn5FGV79N8TJ4kjuZCFx5BARJHrpUtWmrLpBEx0Mz8tDZA96Kwolllc2cKhl4l4ikDJpsoRazmYqRpTZBk3MzbMbsGu1JGdsZCSEbBSbj53sLu4dUpdO7aL8bvBexH8xKXUS'
+
+    
+    response_message = {
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "button",
+            "text": "Please select an option:",
+            "buttons": [
+                {
+                    "type": "postback",
+                    "title": " Full Layer Makeup",
+                    "payload": " Full Layer Makeup"
+                },
+                {
+                    "type": "postback",
+                    "title": "Half Layer Makeup",
+                    "payload": "Half Layer Makeup"
+                },
+                {
+                    "type": "postback",
+                    "title": "Family makeup",
+                    "payload": "Family makeup"
                 }
             ]
         }
