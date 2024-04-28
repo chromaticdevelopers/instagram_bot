@@ -16,6 +16,7 @@ def instagram_webhook(request):
             print("getting call")
             # Parse JSON data from request body
             data = json.loads(request.body)
+            print("data,data",data)
             entry = data.get('entry', [])
             for entry_item in entry:
                 messaging = entry_item.get('messaging', [])
@@ -784,11 +785,12 @@ def makeup3(message='', recipient_id=''):
                 "elements": [
                     {
                         "title": "Zaras Make over- Group",
+                        "subtitle": "Your subtitle here",
                         "image_url": "https://cdn0.weddingwire.in/article/7269/3_2/1280/jpg/9627-kerala-bridal-makeup-weva-photography-lead-image.webp",
                         "buttons": [
                             {
-                                "type": "web_url",
-                                "url": "www.fb.com",
+                                "type": "postback",
+                                "payload": "hiiii",
                                 "title": "Inquiry"
                             },
                             {
