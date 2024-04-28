@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-t&mmrnm75*wh1@hve7c7211=n$7#87$f5=#yfye)q5$!y__i0o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['7765-103-157-160-147.ngrok-free.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,10 +74,21 @@ WSGI_APPLICATION = 'instagram_bot.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'instagram_bot',
+        'USER': 'postgres',
+        'PASSWORD': 'chromatic',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

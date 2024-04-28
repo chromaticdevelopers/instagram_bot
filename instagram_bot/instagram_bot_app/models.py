@@ -19,7 +19,7 @@ class Menu(models.Model):
     subtitle = models.CharField(max_length=255)
     image_url = models.URLField()
     main_menu = models.BooleanField(default=False)
-    successors = models.ManyToManyField('self', related_name='predecessors', blank=True)
+    successor_of = models.ForeignKey('OptionsMenu', on_delete=models.CASCADE, null=True, blank=True, unique=True, related_name='successor_of')
 
     def __str__(self):
         return self.title
