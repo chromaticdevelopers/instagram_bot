@@ -6,7 +6,9 @@ from django.contrib.auth import login
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from instagram_bot_app.common_functions.json_data_creator import call_main_menu
 from instagram_bot_app.models import UserStatus
+
 
 
 @csrf_exempt
@@ -30,7 +32,7 @@ def instagram_webhook(request):
                         msg_data = {'msg': msg, 'msg_id': msg_id, 'sender_id': sender_id, 'receiver_id': receiver_id}
                         print("incoming", msg_data)
                         # Check if the sender is in the database
-                        send_instgaram_message_start(message=msg_data['msg'], recipient_id=sender_id)
+                        call_main_menu(message=msg_data['msg'], recipient_id=sender_id)
                     elif 'postback' in message_item:
                         # If it's a postback
                         payload = message_item['postback']['payload']
@@ -91,7 +93,6 @@ def instagram_webhook(request):
             return HttpResponse('Error', status=500)
 
     elif request.method == 'GET':
-    
         hub_mode = request.GET.get('hub.mode')
         if hub_mode == 'subscribe':
             hub_challenge = request.GET.get('hub.challenge')
