@@ -9,4 +9,4 @@ class MenuSerializer(serializers.ModelSerializer):
 class OptionsMenuSerializer(serializers.ModelSerializer):
     class Meta:
         model = OptionsMenu
-        fields = ['menu', 'title', 'payload', 'type']
+        fields = ['menu', 'title', 'type']

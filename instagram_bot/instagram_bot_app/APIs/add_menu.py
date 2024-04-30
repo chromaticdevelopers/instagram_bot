@@ -26,7 +26,7 @@ class MenuWithOptionsAPIView(APIView):
             options_data = request.data.pop('options', [])
             # Save options
             for option_data in options_data:
-                option_data['menu'] = menu_instance.id  # Assign menu id to option
+                option_data['menu'] = menu_instance.id
                 option_serializer = OptionsMenuSerializer(data=option_data)
                 if option_serializer.is_valid():
                     option_serializer.save()

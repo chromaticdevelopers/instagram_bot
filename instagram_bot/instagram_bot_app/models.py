@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.utils import timezone
 
@@ -26,7 +27,7 @@ class Menu(models.Model):
 class OptionsMenu(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    payload = models.CharField(max_length=255)
+    payload = models.UUIDField(default=uuid.uuid4, editable=False)
     TYPE_CHOICES = [
         ('URL', 'URL'),
         ('BUTTON', 'Button'),
